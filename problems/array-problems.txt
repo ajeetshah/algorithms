@@ -2,8 +2,20 @@ p1. Given an array A[] and a number x, check for pair in A[] with sum as x
 
 http://www.geeksforgeeks.org/write-a-c-program-that-given-a-set-a-of-n-numbers-and-another-number-x-determines-whether-or-not-there-exist-two-elements-in-s-whose-sum-is-exactly-x/
 
+===
+
 p2. Majority Element
 
 Majority Element: A majority element in an array A[] of size n is an element that appears more than n/2 times (and hence there is at most one such element).
 
 Write a function which takes an array and prints the majority element (if it exists), otherwise prints "NONE".
+
+http://www.geeksforgeeks.org/majority-element/
+
+===
+
+p3. Find the Number Occurring Odd Number of Times
+
+Given an array of positive integers. All numbers occur even number of times except one number which occurs odd number of times. Find the number in O(n) time & constant space.
+
+http://www.geeksforgeeks.org/find-the-number-occurring-odd-number-of-times/
