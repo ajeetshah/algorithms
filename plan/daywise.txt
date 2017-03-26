@@ -1,4 +1,21 @@
+0. Arrays
+
 1. Sorting
+
+	Merge sort
+	Quick sort
+	Heap sort
+	Counting sort / radix sort
 
 2. Searching
 
+	Binary
+	Linear
+
+3. Recusrions*
+
+	Tower Of Hanoi
+	Binary sequence
+	Symbol sequence
+
+4. Hashing
