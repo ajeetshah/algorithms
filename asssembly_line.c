@@ -1,6 +1,6 @@
 #include<stdio.h>
-// #define LINES 2
-// #define STATIONS 6
+#define LINES 2
+#define STATIONS 6
 
 int min(int a, int b) {
 	if(a < b){
@@ -19,42 +19,56 @@ void nl2() {
 	printf("\n\n");
 }
 
-int main() {
-	int LINES, STATIONS;
-	printf("Number of lines and stations: ");
-	scanf("%d %d", &LINES, &STATIONS);
+void printPathInc(int line, int station, int from[][STATIONS-1]) {
+        if (station == -1) {
+                return;
+        }
+        printPathInc(from[line][station], station-1, from);
+        printf("Line %d, Station %d\n", line, station);
+}
 
-	int A[LINES][STATIONS];
-	int T[LINES][STATIONS-1];
-	int E[LINES];
-	int X[LINES];
+int main() {
+	/* int LINES, STATIONS;
+	printf("Number of lines and stations: ");
+	scanf("%d %d", &LINES, &STATIONS);*/
+
+	int A[LINES][STATIONS] = {
+		7, 9, 3, 4, 8, 4,
+		8, 5, 6, 4, 5, 7
+	};
+	int T[LINES][STATIONS-1] = {
+		2, 3, 1, 3, 4,
+		2, 1, 2, 2, 1
+	};
+	int E[LINES] = {2, 4};
+	int X[LINES] = {3, 2};
 
 	int i, j;
 	
 	// inputs
-	printf("Assembly times %d x %d:\n", LINES, STATIONS);
+	/* printf("Assembly times %d x %d:\n", LINES, STATIONS);
 	for(i=0; i<LINES; i++){
 		for(j=0; j<STATIONS; j++){
 			scanf("%d", &A[i][j]);
 		}
-	}
+	}*/
 	
-	printf("Transition times %d x %d:\n", LINES, STATIONS-1);
+	/* printf("Transition times %d x %d:\n", LINES, STATIONS-1);
 	for(i=0; i<LINES; i++){
 		for(j=0; j<STATIONS-1; j++){
 			scanf("%d", &T[i][j]);
 		}
-	}
+	}*/
 	
-	printf("Entry times %d:\n", LINES);
+	/* printf("Entry times %d:\n", LINES);
 	for(i=0; i<LINES; i++){
 		scanf("%d", &E[i]);
-	}
+	}*/
 
-	printf("Exit times %d:\n", LINES);
+	/* printf("Exit times %d:\n", LINES);
 	for(i=0; i<LINES; i++){
 		scanf("%d", &X[i]);
-	}
+	}*/
 	
 	nl();
 	
@@ -140,6 +154,9 @@ int main() {
 		printf("Line %d, Station %d\n", line, i);
 		line = from[line][i];
 	}
+
+	// print path in increasing order
+	printPathInc(lastLine, STATIONS-1, from);
 	
 	return 0;
 }
