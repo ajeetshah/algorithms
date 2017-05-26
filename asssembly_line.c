@@ -121,10 +121,24 @@ int main() {
 	nl();
 
 	// print the path
+	if (lastLine == -1) {
+		printf("Time of passing Station %d is same for all %d lines.", STATIONS-1, LINES);
+		printf("Which one would you like to choose? Line %d or Line %d?", LINES-2, LINES-1);
+		scanf("%d", &lastLine);
+	}
 	printf("Line %d, Station %d\n", lastLine, STATIONS-1);
+
+	int line = lastLine;
 	for(i=STATIONS-2; i>=0; i--) {
-		printf("Line %d, Station %d\n", from[lastLine][i], i);
-		lastLine = from[lastLine][i];
+		line = from[line][i];
+		
+		if (line == -1) {
+			printf("Time of passing Station %d is same for all %d lines.", i, LINES);
+			printf("Which one would you like to choose? Line %d or Line %d?", LINES-2, LINES-1);
+			scanf("%d", &line);
+		}
+		printf("Line %d, Station %d\n", line, i);
+		line = from[line][i];
 	}
 	
 	return 0;
