@@ -1,13 +1,13 @@
 #include<stdio.h>
 #define N 10
-
+/* the #define directive allows the definition of macros within your source code. These macro definitions allow constant values to be declared for use throughout your code. ... You generally use this syntax when creating constants that represent numbers, strings or expressions. */ 
 void swap(int A[], int i, int j) {
 	int t;
 	t = A[i];
 	A[i] = A[j];
 	A[j] = t;
 }
-
+// we are shorthing an array either in assending or in descendig order//
 void sortArray(int A[], int n) {
 	int i, j;
 	int min;
@@ -24,7 +24,7 @@ void sortArray(int A[], int n) {
 		}
 	}
 }
-
+/* the function which we have made above we can use that here */ 
 int findMajority(int A[], int n, int *major) {
 	int found = 0;
 	int i;
