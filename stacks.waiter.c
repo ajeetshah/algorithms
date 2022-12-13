@@ -14,49 +14,106 @@ char* ltrim(char*);
 char* rtrim(char*);
 char** split_string(char*);
 int parse_int(char*);
-
-/*
- * Complete the 'waiter' function below.
- *
- * The function is expected to return an INTEGER_ARRAY.
- * The function accepts following parameters:
- *  1. INTEGER_ARRAY number
- *  2. INTEGER q
- */
-
-/*
- * To return the integer array from the function, you should:
- *     - Store the size of the array to be returned in the result_count variable
- *     - Allocate the array statically or dynamically
- *
- * For example,
- * int* return_integer_array_using_static_allocation(int* result_count) {
- *     *result_count = 5;
- *
- *     static int a[5] = {1, 2, 3, 4, 5};
- *
- *     return a;
- * }
- *
- * int* return_integer_array_using_dynamic_allocation(int* result_count) {
- *     *result_count = 5;
- *
- *     int *a = malloc(5 * sizeof(int));
- *
- *     for (int i = 0; i < 5; i++) {
- *         *(a + i) = i + 1;
- *     }
- *
- *     return a;
- * }
- *
- */
+int* get_primes(int*, int);
+int* filter(int, int*, int*, int*, int*, int it, int q);
+int main2();
 
 int* waiter(int number_count, int* number, int q, int* result_count) {
+	/*for(int i = 0; i<number_count; i++) {
+		printf("number+%d: %d\n", i, *(number+i));
+	}*/
 
+	int* primes = malloc(q * sizeof(int));
+	primes = get_primes(primes, q);
+
+	/*for(int i=0; i<q; i++){
+		printf("primes %d: %d\n", i, *(primes+i));
+	}*/
+
+	int* result = malloc(0);
+	*result_count = 0;
+	int it = 1;
+	result = filter(number_count, number, result_count, result, primes, it, q);
+	
+	/*for(int i=0; i<*result_count; i++) {
+		printf("result: %d,", *(result+i));
+	}*/
+
+	return result;
 }
 
-int main()
+int* filter (int number_count, int* number_o, int* result_count, int* result, int* primes, int it, int q) {
+
+	int* number = malloc(number_count * sizeof(int));
+        for(int i=0; i<number_count; i++){
+                *(number+i) = *(number_o+number_count-i-1);
+        }
+
+	int* ai = malloc(0);
+	int ai_count = 0;
+	int* bi = malloc(0);
+	int bi_count = 0;
+
+	for(int i=0; i<number_count; i++) {
+		if(*(number+i) % *(primes+it-1) != 0) {
+			ai = realloc(ai, (ai_count + 1)*sizeof(int));
+			*(ai+ai_count) = *(number+i);
+			ai_count++;
+		} else {
+			bi = realloc(bi, (bi_count + 1)*sizeof(int));
+			*(bi+bi_count) = *(number+i);
+			bi_count++;
+		}
+	}
+
+	/*for(int i=0; i<ai_count; i++) {
+		printf("ai: %d, ", *(ai+i));
+	}
+	for(int i=0; i<bi_count; i++) {
+		printf("bi: %d, ", *(bi+i));
+	}*/
+	
+	if(bi_count > 0) {
+		result = realloc(result, (*result_count + bi_count)*sizeof(int));
+		for(int i=0; i<bi_count; i++) {
+			*(result+*result_count+i) = *(bi+bi_count-i-1);
+		}
+		*result_count += bi_count;
+	}
+
+	if(it < q) {
+		return filter(ai_count, ai, result_count, result, primes, it+1, q);
+	} else {
+		result = realloc(result, (*result_count + ai_count)*sizeof(int));
+		for(int i=0; i<ai_count; i++) {
+			*(result + *result_count + i) = *(ai+ai_count-i-1);
+		}
+		*result_count += ai_count;
+		return result;
+	}
+}
+
+int main() {
+	int number[6] = {2,3,4,5,6,7};
+	int* result_count;
+	*result_count = 0;
+	int* result = waiter(6, number, 3, result_count);
+	
+	/*int number[5] = {3,4,7,6,5};
+        int* result_count;
+        *result_count = 0;
+        int* result = waiter(5, number, 1, result_count);*/
+
+	/*int number[5] = {3,3,4,4,9};
+        int* result_count;
+        *result_count = 0;
+        int* result = waiter(5, number, 2, result_count);*/
+
+
+	return 0;
+}
+
+int main2()
 {
     FILE* fptr = fopen(getenv("OUTPUT_PATH"), "w");
 
@@ -212,5 +269,38 @@ int parse_int(char* str) {
     }
 
     return value;
+}
+
+int *get_primes(int *primes, int count) {
+
+        int i = 0;
+        primes[i] = 2;
+        i++;
+
+        int j = 0;
+        int number = 3;
+
+        while(1) {
+                if (i == count) {
+                        break;
+                }
+
+                if (sqrt(number) < (double) primes[j]) { // a prime
+                        primes[i] = number;
+                        i++;
+                        number++;
+                        j = 0;
+                        continue;
+                }
+
+		if (number % primes[j] == 0) { // not a prime
+                        number++;
+                        j = 0;
+                        continue;
+                }
+                j++;
+        }
+
+        return primes;
 }
 
